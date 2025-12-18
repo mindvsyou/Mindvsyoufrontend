@@ -16,7 +16,7 @@ const Contact = () => {
                     email,
                 }
                 setLoading(true);
-                axios.post('http://localhost:5000/record/emailform',data).then(()=>{
+                axios.post('https://localhost:5000/record/emailform',data).then(()=>{
                     setLoading(false);
                     navigate('/record/emailsuccess');
                 }).catch((error)=>{
@@ -35,7 +35,7 @@ const Contact = () => {
             message,
         }
         setLoading(true);
-        axios.post('http://localhost:5000/record/contactdata', data).then(()=>{
+        axios.post('https://localhost:5000/record/contactdata', data).then(()=>{
             setLoading(false);
             navigate('/record/contactsuccess');
         }).catch((error)=>{

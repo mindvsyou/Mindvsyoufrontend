@@ -31,7 +31,7 @@ const PdfDetails = () => {
               email,
           }
           setLoading(true);
-          axios.post('http://localhost:5000/record/emailform',data).then(()=>{
+          axios.post('https://localhost:5000/record/emailform',data).then(()=>{
               setLoading(false);
               navigate('/record/emailsuccess');
           }).catch((error)=>{
@@ -44,7 +44,7 @@ const PdfDetails = () => {
   // Fetch PDFs by section
   const getPdfs = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/record/get-pdfs/${id}`);
+      const res = await axios.get(`https://localhost:5000/record/get-pdfs/${id}`);
       setPdfs(res.data.data);
     } catch (err) {
       console.log(err);
@@ -64,7 +64,7 @@ const PdfDetails = () => {
     formData.append("file", file);
     formData.append("section", id);
 
-    await axios.post("http://localhost:5000/record/upload-files", formData, {
+    await axios.post("https://localhost:5000/record/upload-files", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
 
@@ -73,20 +73,20 @@ const PdfDetails = () => {
 
   // Open PDF
   const showPdf = (pdfName) => {
-    window.open(`http://localhost:5000/files/${pdfName}`, "_blank");
+    window.open(`https://localhost:5000/files/${pdfName}`, "_blank");
   };
 
   // Delete PDF
   const deletePdf = async (pdfId) => {
     if (!window.confirm("Delete this PDF?")) return;
 
-    await axios.delete(`http://localhost:5000/record/delete-pdf/${pdfId}`);
+    await axios.delete(`https://localhost:5000/record/delete-pdf/${pdfId}`);
     setPdfs((prev) => prev.filter((p) => p._id !== pdfId));
   };
 
   const editPdfName = async (id) => {
   try {
-    await axios.put(`http://localhost:5000/record/edit-pdf/${id}`, {
+    await axios.put(`https://localhost:5000/record/edit-pdf/${id}`, {
       title: newTitle,
     });
 

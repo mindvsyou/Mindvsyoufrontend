@@ -5,7 +5,7 @@ const Pdflist = () => {
     const [pdfs, setPdfs] = useState([]);
 
    useEffect(() => {
-        axios.get("http://localhost:5000/record/pdfs")
+        axios.get("https://localhost:5000/record/pdfs")
             .then(res => setPdfs(res.data))
             .catch(err => console.log(err));
     }, []);
@@ -17,7 +17,7 @@ const Pdflist = () => {
             {pdfs.map((pdf, index) => (
                 <div key={index} style={{ margin: "10px 0" }}>
                     <a
-                        href={`http://localhost:5000/record/view/${(pdf.filename)}`}
+                        href={`https://localhost:5000/record/view/${(pdf.filename)}`}
                         target="_blank"
                         rel="noreferrer"
                     >

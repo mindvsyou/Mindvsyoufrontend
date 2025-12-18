@@ -14,7 +14,7 @@ const About = () => {
                 email,
             }
             setLoading(true);
-            axios.post('http://localhost:5000/record/emailform',data).then(()=>{
+            axios.post('https://localhost:5000/record/emailform',data).then(()=>{
                 setLoading(false);
                 navigate('/record/emailsuccess');
             }).catch((error)=>{
