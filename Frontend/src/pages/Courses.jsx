@@ -15,7 +15,7 @@ const Courses = () => {
             email,
         }
         setLoading(true);
-        axios.post('https://localhost:5000/record/emailform',data).then(()=>{
+        axios.post('https://mindvsyou-1.onrender.com/record/emailform',data).then(()=>{
             setLoading(false);
             navigate('/record/emailsuccess');
         }).catch((error)=>{
