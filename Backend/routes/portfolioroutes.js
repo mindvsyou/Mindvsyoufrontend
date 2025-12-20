@@ -63,11 +63,11 @@ router.post("/contactdata", async (req, res) => {
 })
 
 const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,
+  cloudinary,
   params: {
     folder: "mindvsyou_pdfs",
-    resource_type: "raw", // important for PDFs
-    format: async (req, file) => "pdf",
+    resource_type: "raw",
+    access_mode: "public",   // ✅ THIS FIXES 401
     public_id: (req, file) =>
       Date.now() + "-" + file.originalname.replace(/\s+/g, "_"),
   },
@@ -75,34 +75,33 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage });
 
-// Root route
-router.get("/", (req, res) => {
-  res.send("Backend is running successfully!");
-});
-
-// Upload PDF
+// Upload PDF route
 router.post("/upload-files", upload.single("file"), async (req, res) => {
   try {
+    console.log("BODY:", req.body);
+    console.log("FILE:", req.file?.path);
+
     const { title, section } = req.body;
 
-    // IMPORTANT: CloudinaryStorage already returns secure_url and filename
-    const pdfUrl = req.file.path;      // secure_url
-    const publicId = req.file.filename; // Cloudinary public_id
+    if (!title || !section || !req.file) {
+      return res.status(400).json({ message: "Missing fields" });
+    }
 
-    await PdfDetails.create({
+    const savedPdf = await PdfDetails.create({
       title,
-      pdfUrl,
-      publicId,
+      pdfUrl: req.file.path,
+      publicId: req.file.filename,
       section,
     });
 
-    res.json({ status: "ok", data: { title, pdfUrl, publicId } });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error });
+    console.log("SAVED:", savedPdf._id);
+
+    res.status(201).json({ status: "ok", data: savedPdf });
+  } catch (err) {
+    console.error("SAVE ERROR:", err);
+    res.status(500).json({ error: err.message });
   }
 });
-
 // Get PDFs by section
 router.get("/get-pdfs/:sectionId", async (req, res) => {
   try {

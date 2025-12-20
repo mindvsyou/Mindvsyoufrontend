@@ -57,19 +57,33 @@ const PdfDetails = () => {
 
   // Submit PDF
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
+  e.preventDefault();
 
-    formData.append("title", title);
-    formData.append("file", file);
-    formData.append("section", id);
+  if (!title || !file) {
+    alert("Title and file required");
+    return;
+  }
 
-    await axios.post("https://mindvsyou-1.onrender.com/record/upload-files", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+  const formData = new FormData();
+  formData.append("title", title);      // ✅ MUST be before file
+  formData.append("section", id);
+  formData.append("file", file);        // ✅ file LAST
 
+  try {
+    await axios.post(
+      "https://mindvsyou-1.onrender.com/record/upload-files",
+      formData,
+      
+    );
+
+    setTitle("");
+    setFile(null);
     getPdfs();
-  };
+  } catch (err) {
+    console.error(err);
+    alert("Upload failed");
+  }
+};
 
   // Open PDF
   const showPdf = (pdfUrl) => {
@@ -131,6 +145,7 @@ const PdfDetails = () => {
         <input
           type="text"
           placeholder="Enter Title"
+          value={title}
           className="border p-2 w-full mb-3"
           required
           onChange={(e) => setTitle(e.target.value)}
@@ -160,8 +175,29 @@ const PdfDetails = () => {
       key={pdf._id}
       className="flex justify-between items-center p-3 bg-gray-100 border rounded mb-2"
     >
-      <h6 className="text-gray-800 font-medium">{pdf.title}</h6>
+      <h6 className="text-gray-800 font-medium">{pdf.title || "Untitled PDF"}</h6>
       <div className="space-x-4">
+         {editingId === pdf._id ? (
+        <button  
+       
+        className="bg-blue-600 text-white px-3 py-2"
+        onClick={() => editPdfName(pdf._id)}
+        >
+          Save
+        </button>
+      ) : (
+        <button
+          className="bg-yellow-500 text-white px-3 py-2"
+          type="text"
+          value={newTitle}
+          onClick={() => {
+            setEditingId(pdf._id);
+            setNewTitle(pdf.title);
+          }}
+        >
+          Edit
+        </button>
+      )}
         <button
           className="bg-green-600 text-white px-3 py-2"
           onClick={() => window.open(pdf.pdfUrl, "_blank")}
