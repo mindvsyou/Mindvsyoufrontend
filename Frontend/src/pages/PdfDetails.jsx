@@ -73,6 +73,7 @@ const PdfDetails = () => {
     await axios.post(
       "https://mindvsyou-1.onrender.com/record/upload-files",
       formData,
+      { headers: { "Content-Type": "multipart/form-data" } }
       
     );
 
