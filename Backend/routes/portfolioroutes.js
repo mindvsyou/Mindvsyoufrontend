@@ -1,12 +1,7 @@
 import express from "express";
 import { Email } from "../models/EmailsignupRoute.js";
 import { Contact } from "../models/ContactRoute.js";
-import multer from "multer";
-import fs from "fs";
 import path from "path";
-import cloudinary from "../cloudinary.js"
-import { CloudinaryStorage } from "multer-storage-cloudinary";
-
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
