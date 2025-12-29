@@ -79,183 +79,185 @@ const Home = () => {
     }
 
 return (
-<div className="background">
-
-   
-   
-    <nav className="bg-cover bg-center bg-no-repeat h-60" 
-     style={{ backgroundImage: "url('/notebook22.jpg')" }}>
-
-    <div className='flex'>
-    <div className="mt-40 ml-2">
-    <h1 className="text-2xl font-bold text-white">MindVsYou Coaching</h1>
-    </div>
-    <div className='ml-96 text-white font-bold mt-4'>
-    <ul className='flex text-white space-x-2'>
-    <li className=""><Link to="/record/courses" className='text-white no-underline'>Courses</Link></li>
-    <li className=""> <Link to="/record/about" className='text-white no-underline'>About</Link></li>
-    <li className=""> <Link to="/record/contact" className='text-white no-underline'>Contact</Link></li>
-    <li className=""> <Link to="/record/policy" className='text-white no-underline'>Privacy Policy</Link></li>
-    <li className=""> <Link to="/record/blogs" className='text-white no-underline'>Blogs</Link></li>
-    <li className=""> <Link to="/record/chatbot" className='text-white no-underline'>Chatbot</Link></li>
-    </ul>
-    </div>
-    </div>
-    
-    </nav>
-   
-<section id="home" className="pt-28 pb-20 bg-linear-to-r from-yellow-200 to-yellow-200 text-black">
-<div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
-<div>
-<h1 className="text-2xl mt-10 text-black font-Medium font-serif">
-WHERE MIND MEETS MASTERY
-</h1>
-<p className="font-light">
-Learn from top educators, access structured courses, and achieve your goals
-with personalized mentorship.
-</p>
-<Button className="bg-black text-blue-600 px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-[0_0_30px_#48d3ec]"><Link to="/record/courses" className="!no-underline text-white">Explore Courses</Link>
-</Button>
-</div>
-<div>
-<Image src="\students.jpg" rounded />
-</div>
-</div>
-</section>
-<div className="flex">
-    <div className="mt-auto ml-8">
-        <h1 className="w-3xl text-9xl">Introducing your expert guide</h1>
-        <p>Step into a classroom led by visionaries who redefine what it means to educate.
-           Our instructors don't just teach; they inspire curiosity, innovation, and the 
-           passion for lifelong learning.</p>
-    </div>
-    <div className="w-3xl h-60 mr-8 mt-8">
-        <Image src="\lamp.jpg" />
-    </div>
-</div>
-<div className="mt-auto ml-8">
-    <div>
-    <h1>FAQs</h1>
-    </div>
-    <div>
-    <h2>-------------------------------------------------------------</h2>
-    <h3>Question 1</h3>
-    <p>It all begins with an idea. Maybe you want to launch a business. Maybe you want to turn a 
-        hobby into <br/>something more. Or maybe you have a creative project to share with the world. 
-        Whatever it is, the way <br/> you tell your story online can make all the difference. </p>
-    <h2>-------------------------------------------------------------</h2>
-    </div>
-     <div>
-    
-    <h3>Question 2</h3>
-    <p>It all begins with an idea. Maybe you want to launch a business. Maybe you want to turn a 
-        hobby into <br/>something more. Or maybe you have a creative project to share with the world. 
-        Whatever it is, the way <br/>you tell your story online can make all the difference.</p>
-    <h2>-------------------------------------------------------------</h2>
-    </div>
-     <div>
-   
-    </div>
-</div>
-<div className="relative w-full py-10 mt-4">
-      <h2 className="text-3xl font-bold text-center mb-6">
-        What Our Customers Say
-      </h2>
-
-      {/* Left Arrow */}
-      <button
-        onClick={slideLeft}
-        className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-3 rounded-full"
+    <div className="w-full overflow-x-hidden">
+  
+      {/* NAVBAR */}
+      <nav
+        className="bg-cover bg-center bg-no-repeat min-h-[240px]"
+        style={{ backgroundImage: "url('/notebook22.jpg')" }}
       >
-        <ChevronLeft size={28} />
-      </button>
-
-      {/* Slider */}
-      <div
-        ref={sliderRef}
-        className="flex gap-6 overflow-x-scroll scroll-smooth no-scrollbar px-10"
-      >
-        {testimonials.map((t, index) => (
-          <div
-            key={index}
-            className="min-w-[300px] bg-white shadow-xl p-6 rounded-xl border border-gray-200"
-          >
-             <div className="flex items-center gap-1 mb-3">
-      {[1, 2, 3, 4, 5].map((star) => (
-        <Star
-          key={star}
-          size={18}
-          className="text-yellow-400 fill-yellow-400"
-        />
-      ))}
-    </div>
-            <p className="text-gray-700 italic mb-4">“{t.message}”</p>
-            <h3 className="font-semibold text-lg">{t.name}</h3>
-            <p>{t.rating}</p>
+        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row md:items-center md:justify-between">
+          <h1 className="mt-28 md:mt-40 text-2xl md:text-3xl font-bold text-white">
+            MindVsYou Coaching
+          </h1>
+  
+          <ul className="flex flex-wrap gap-4 mt-6 md:mt-4 text-white font-semibold text-sm md:text-base">
+            <li><Link to="/record/courses">Courses</Link></li>
+            <li><Link to="/record/about">About</Link></li>
+            <li><Link to="/record/contact">Contact</Link></li>
+            <li><Link to="/record/policy">Privacy Policy</Link></li>
+            <li><Link to="/record/blogs">Blogs</Link></li>
+            <li><Link to="/record/chatbot">Chatbot</Link></li>
+          </ul>
+        </div>
+      </nav>
+  
+      {/* HERO */}
+      <section className="py-16 bg-gradient-to-r from-yellow-200 to-yellow-200">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          <div>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif font-medium">
+              WHERE MIND MEETS MASTERY
+            </h1>
+            <p className="mt-4 text-sm md:text-base">
+              Learn from top educators, access structured courses, and achieve your goals
+              with personalized mentorship.
+            </p>
+            <Button className="mt-6 bg-black px-6 py-3 rounded-xl">
+              <Link to="/record/courses" className="text-white no-underline">
+                Explore Courses
+              </Link>
+            </Button>
           </div>
-        ))}
-      </div>
-
-      {/* Right Arrow */}
-      <button
-        onClick={slideRight}
-        className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-3 rounded-full"
-      >
-        <ChevronRight size={28} />
-      </button>
-    </div>
-    <div className='mt-4 border-2 rounded px-4 py-4 bg-gray-200'
-                  style={{ backgroundImage: "url('')" }}>
-                    <h1>Learn from anywhere</h1>
-                    <p>We’re available on Android devices and platforms. <br/>Study from anywhere at your convenience.</p>
-                    <Image src='/google-play-store-badge.png' className='w-80' />
-                  </div>
-    <div className="mt-4 border-2 border-amber-100 text-center px-2 py-2">
-        <div>
-        <h3>Know more about our courses!</h3>
-        <p>Book a free counselling session</p>
-        <div className="flex ml-130"> 
-        <User className="w-6 h-6 mt-2 text-gray-700" />
-        <button className="bg-gray-800 hover:bg-gray-600 text-white px-2 py-2 rounded w-60">Speak to an Expert</button>
+  
+          <Image src="/students.jpg" rounded className="w-full h-auto" />
         </div>
+      </section>
+  
+      {/* INSTRUCTOR */}
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-10">
+          <div className="flex-1">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">
+              Introducing your expert guide
+            </h1>
+            <p className="mt-4 text-sm md:text-base">
+              Step into a classroom led by visionaries who redefine what it means to educate.
+            </p>
+          </div>
+          <Image src="/lamp.jpg" className="w-full md:w-1/2 rounded-lg" />
         </div>
-    </div>              
-    <div className="flex gap-40 mt-14 bg-linear-to-r from-yellow-200 to-yellow-200 h-96">
-        <div className="ml-8 mt-14 text-black"><h1>MindVsYou</h1></div>
-        <div className="mt-14">
-            <ul className=" md:flex space-x-8 text-lg font-sans">
-                <li>
-                  <li className="hover:text-black-600 font-sans"> Explore </li>
-                  <li className="hover:text-blue-600"> <Link to="/courses">Courses</Link></li>
-                  <li className="hover:text-blue-600"> <Link to="/about">About</Link></li>
-                  <li className="hover:text-blue-600"> <Link to="/contact">Contact</Link></li>
-                </li>
-            </ul>
-        </div>
-        <div className="mt-14">
-             <ul className=" md:flex space-x-8 text-lg font-sans">
-                <li >
-                  <li className="hover:text-black-600 font-sans"> Follow Us </li>
-                  <li className="hover:text-blue-600"> <Link to="/courses">Facebook</Link></li>
-                  <li className="hover:text-blue-600"> <Link to="/admissionform">Instagram</Link></li>
-                  <li className="hover:text-blue-600"> <Link to="/contact">Twitter</Link></li>
-                </li>
-            </ul>
-        </div>
-        <div className="mt-14  border-0 text-shadow-black font-light flex-col">
-            <label className='font-bold'>Sign up with your email address to receive news and updates.</label>
-            <input className='w-96 mt-2 px-4 py-2 bg-gray-200 text-black border border-gray-700 rounded-lg
-         focus:outline-none focus:ring-2 focus:ring-blue-50' type='text' name='Email' value={email}
-            onChange={(e)=> setEmail(e.target.value)}/>
-             <div className='mt-2'>
-            <Button className="bg-black mb-2 font-extrabold rounded-b-full px-6 py-3 shadow-2xl hover:shadow-white-400" onClick={emailSaveHandle}>SIGN UP </Button>
+      </section>
+  
+      {/* FAQ */}
+      <section className="py-12 bg-gray-50">
+        <div className="max-w-5xl mx-auto px-6">
+          <h1 className="text-2xl font-bold mb-6">FAQs</h1>
+  
+          {[1, 2].map((q) => (
+            <div key={q} className="border-t py-6">
+              <h3 className="font-semibold">Question {q}</h3>
+              <p className="mt-2 text-sm md:text-base">
+                It all begins with an idea. Maybe you want to launch a business or share
+                a creative project with the world.
+              </p>
             </div>
+          ))}
         </div>
+      </section>
+  
+      {/* TESTIMONIALS */}
+      <section className="relative py-16">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-6">
+          What Our Customers Say
+        </h2>
+  
+        <button
+          onClick={slideLeft}
+          className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 text-white p-3 rounded-full"
+        >
+          <ChevronLeft size={28} />
+        </button>
+  
+        <div
+          ref={sliderRef}
+          className="flex gap-6 overflow-x-auto scroll-smooth px-6 md:px-10"
+        >
+          {testimonials.map((t, i) => (
+            <div
+              key={i}
+              className="min-w-[260px] sm:min-w-[300px] bg-white p-6 rounded-xl shadow-lg"
+            >
+              <div className="flex gap-1 mb-3">
+                {[1,2,3,4,5].map((s) => (
+                  <Star key={s} size={16} className="text-yellow-400 fill-yellow-400" />
+                ))}
+              </div>
+              <p className="text-sm italic mb-4">“{t.message}”</p>
+              <h3 className="font-semibold">{t.name}</h3>
+            </div>
+          ))}
+        </div>
+  
+        <button
+          onClick={slideRight}
+          className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 text-white p-3 rounded-full"
+        >
+          <ChevronRight size={28} />
+        </button>
+      </section>
+  
+      {/* APP PROMO */}
+      <section className="py-10 bg-gray-200 text-center">
+        <h1 className="text-xl font-bold">Learn from anywhere</h1>
+        <p className="mt-2 text-sm md:text-base">
+          Study from anywhere at your convenience.
+        </p>
+        <Image src="/google-play-store-badge.png" className="mx-auto w-48 mt-4" />
+      </section>
+  
+      {/* CTA */}
+      <section className="py-10 text-center">
+        <h3 className="font-semibold">Know more about our courses!</h3>
+        <p className="text-sm">Book a free counselling session</p>
+        <div className="mt-4 flex justify-center gap-2">
+          <User className="w-6 h-6 text-gray-700" />
+          <button className="bg-gray-800 text-white px-6 py-2 rounded">
+            Speak to an Expert
+          </button>
+        </div>
+      </section>
+  
+      {/* FOOTER */}
+      <footer className="bg-yellow-200 py-16">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
+          <h1 className="text-xl font-bold">MindVsYou</h1>
+  
+          <div>
+            <h3 className="font-semibold mb-2">Explore</h3>
+            <ul className="space-y-1">
+              <li><Link to="/courses">Courses</Link></li>
+              <li><Link to="/about">About</Link></li>
+              <li><Link to="/contact">Contact</Link></li>
+            </ul>
+          </div>
+  
+          <div>
+            <h3 className="font-semibold mb-2">Follow Us</h3>
+            <ul className="space-y-1">
+              <li>Facebook</li>
+              <li>Instagram</li>
+              <li>Twitter</li>
+            </ul>
+          </div>
+  
+          <div>
+            <label className="font-semibold text-sm">
+              Sign up for updates
+            </label>
+            <input
+              className="w-full mt-2 px-4 py-2 rounded border"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Button className="mt-3 w-full bg-black" onClick={emailSaveHandle}>
+              SIGN UP
+            </Button>
+          </div>
+        </div>
+      </footer>
+  
     </div>
-
-</div>
-
-
-)
+  );
 }
 export default Home ;
