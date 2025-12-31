@@ -1,184 +1,152 @@
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+
 const PrivacyPolicy = () => {
-    return (
-        <>
-        <div className="bg-yellow-200">
-            <nav className="flex">
-                <div className="ml-6 mt-6">
-                    <h1>MindVsYou</h1>
-                </div>
-                <div className="ml-60"> 
-                    <ul className="flex space-x-4 mt-2">
-                        <li><Link to="/" className="text-black">Home</Link></li>
-                        <li><Link to="/record/courses" className="text-black">Courses</Link></li>
-                        <li><Link to="/record/about" className="text-black">About</Link></li>
-                        <li><Link to="/record/contact" className="text-black">Contact</Link></li>
-                    </ul>
-                </div>
-            </nav>
+  return (
+    <>
+      {/* HEADER */}
+      <div className="bg-yellow-200">
+        <nav className="flex flex-col md:flex-row md:items-center md:justify-between px-6 py-6">
+          <h1 className="text-xl font-bold">MindVsYou</h1>
+
+          <ul className="flex flex-wrap gap-4 mt-4 md:mt-0">
+            <li><Link to="/" className="text-black">Home</Link></li>
+            <li><Link to="/record/courses" className="text-black">Courses</Link></li>
+            <li><Link to="/record/about" className="text-black">About</Link></li>
+            <li><Link to="/record/contact" className="text-black">Contact</Link></li>
+          </ul>
+        </nav>
+      </div>
+
+      {/* TITLE */}
+      <div className="px-6 mt-10">
+        <h1 className="text-4xl md:text-7xl font-bold">Privacy Policy</h1>
+      </div>
+
+      {/* CONTENT */}
+      <div className="px-6 mt-6 space-y-4 max-w-5xl">
+        <p>
+          MindvsYou Learning (“we”, “our”, or “us”) operates educational services
+          including our WhatsApp-based AI chatbot that provides quizzes, learning
+          assistance, and communication to students.
+        </p>
+
+        <p>
+          This Privacy Policy explains how we collect, use, store, and protect
+          your information when you interact with our services.
+        </p>
+
+        <p className="font-bold">1. Information We Collect</p>
+        <p>We may collect the following information when you use our services:</p>
+
+        <p className="font-semibold">a) Personal Information</p>
+        <ul className="list-disc ml-6">
+          <li>Name</li>
+          <li>Phone number</li>
+          <li>Class / grade</li>
+          <li>School details (optional)</li>
+          <li>Information voluntarily shared during chatbot interaction</li>
+        </ul>
+
+        <p className="font-semibold">b) Usage & Interaction Data</p>
+        <ul className="list-disc ml-6">
+          <li>Quiz responses</li>
+          <li>Chat messages</li>
+          <li>Preferences and selected subjects</li>
+          <li>Time and frequency of usage</li>
+          <li>Performance analytics</li>
+        </ul>
+
+        <p className="font-semibold">c) Technical Data</p>
+        <ul className="list-disc ml-6">
+          <li>Device type</li>
+          <li>IP address (website users)</li>
+          <li>Browser information</li>
+        </ul>
+
+        <p className="font-bold">2. How We Use Your Information</p>
+        <ul className="list-disc ml-6">
+          <li>Delivering quizzes and practice tests</li>
+          <li>Personalizing learning experience</li>
+          <li>Sending study updates and reminders</li>
+          <li>Improving chatbot performance</li>
+          <li>Providing customer support</li>
+        </ul>
+        <p>We do not sell, rent, or trade your data.</p>
+
+        <p className="font-bold">3. Sharing of Data</p>
+        <ul className="list-disc ml-6">
+          <li>Legal compliance</li>
+          <li>WhatsApp Cloud API (Meta)</li>
+          <li>Trusted service providers under confidentiality</li>
+        </ul>
+
+        <p className="font-bold">4. Data Security</p>
+        <p>
+          We use secured servers, encrypted communication, and limited access.
+          However, no system is 100% secure.
+        </p>
+
+        <p className="font-bold">5. Data Retention</p>
+        <p>
+          Data is retained only as long as necessary. You may request deletion
+          anytime.
+        </p>
+
+        <p className="font-bold">6. Your Rights</p>
+        <ul className="list-disc ml-6">
+          <li>Access your data</li>
+          <li>Request correction or deletion</li>
+          <li>Withdraw consent</li>
+          <li>Stop receiving messages</li>
+        </ul>
+
+        <p className="font-bold">7. Children’s Privacy</p>
+        <p>
+          Our services are intended for students of Class 8 to 12. We take extra
+          precautions to protect minors.
+        </p>
+
+        <p className="font-bold">8. Policy Updates</p>
+        <p>
+          We may update this policy from time to time. Changes will be posted on
+          this page.
+        </p>
+      </div>
+
+      {/* FOOTER */}
+      <div className="bg-yellow-200 mt-16 px-6 py-12">
+        <div className="flex flex-col md:flex-row gap-12">
+          <h1 className="text-xl font-bold">MindVsYou</h1>
+
+          <div>
+            <p className="font-bold mb-2">Explore</p>
+            <Link to="/record/courses" className="block">Courses</Link>
+            <Link to="/record/about" className="block">About</Link>
+            <Link to="/record/contact" className="block">Contact</Link>
+          </div>
+
+          <div>
+            <p className="font-bold mb-2">Follow</p>
+            <Link to="/record/courses" className="block">Facebook</Link>
+            <Link to="/record/admissionform" className="block">Instagram</Link>
+            <Link to="/record/contact" className="block">Twitter</Link>
+          </div>
+
+          {/* EMAIL */}
+          <div className="max-w-sm">
+            <label className="font-bold block mb-2">
+              Sign up with your email address to receive news and updates.
+            </label>
+            <input
+              className="w-full px-4 py-2 bg-gray-200 border border-gray-700 rounded-lg mb-3"
+            />
+            <Button className="bg-black px-6 py-2">SIGN UP</Button>
+          </div>
         </div>
-        <div className="ml-6 mt-8">
-            <h1 className="text-7xl">Privacy policy</h1>
-        </div>
-        <div className="ml-6">
-            <p>MindvsYou Learning (“we”, “our”, or “us”) operates educational services including our WhatsApp-based AI chatbot that provides quizzes, learning<br/> 
-            assistance, and communication to students.</p>
-            <p>This Privacy Policy explains how we collect, use, store, and protect your information when you interact with our services.</p>
-            <p>---------</p>
-            <p>1. Information We Collect</p>
-            <p>We may collect the following information when you use our WhatsApp chatbot or website:</p>
-            <p>a) Personal Information</p>
-            <p>•	Name<br/>
+      </div>
+    </>
+  );
+};
 
-	•	Phone number<br/>
-
-	•	Class/grade<br/>
-
-	•	School details (optional)<br/>
-
-	•	Any information you voluntarily share while interacting with the chatbot</p>
-    <p>
-        b) Usage & Interaction Data</p>
-
-	<p>•	Quiz responses<br/>
-
-	•	Chat messages<br/>
-
-	•	Preferences, topics, and subjects you choose<br/>
-
-	•	Time and frequency of usage<br/>
-
-	•	Analytics related to performance improvement<br/>
-    </p>
-    <p>c) Technical Data</p>
-    <p>
-        •	Device type<br/>
-
-	•	IP address (if using the website)<br/>
-
-	•	Browser information (if using the website)<br/>
-
-⸻
-    </p>
-    <p>2. How We Use Your Information</p>
-    <p>
-        We use your data strictly for educational and service-related purposes, including:
-    </p>
-    <p>
-        •	Delivering quizzes and practice tests<br/>
-
-	•	Personalizing your learning experience<br/>
-
-	•	Sending updates, reminders, or study notifications<br/>
-
-	•	Improving our chatbot and educational services<br/>
-
-	•	Providing customer support<br/>
-
-	•	Internal analytics to enhance student outcomes<br/>
-
-We do not sell, rent, or trade your data with any third party.<br/>
-
-⸻
-    </p>
-    <p>3. Sharing of Data</p>
-    <p>Your data is never shared with third-party companies except:</p>
-    <p>
-        •	To comply with legal requirements<br/>
-
-	•	To integrate with WhatsApp Cloud API (Meta), which is required to deliver services<br/>
-
-	•	With trusted service providers who help us operate the chatbot (e.g., hosting platforms), but only if they follow strict confidentiality rules<br/>
-
-⸻
-    </p>
-    <p>4. Data Security</p>
-    <p>We use reasonable administrative and technical measures to keep your data safe, including:</p>
-    <p>
-        •	Secured servers<br/>
-
-	•	Encrypted communication<br/>
-
-	•	Limited access to authorized team members only<br/>
-
-However, no method of transmission is 100% secure. We strive to protect your data but cannot guarantee absolute security.<br/>
-
-⸻
-    </p>
-    <p>5. Data Retention</p>
-    <p>We keep your data only as long as necessary to:</p>
-    <p>
-        •	Provide educational services<br/>
-
-	•	Maintain your learning records<br/>
-
-	•	Comply with legal obligations<br/>
-
-You may request deletion of your data anytime.<br/>
-
-⸻
-    </p>
-    <p>6. Your Rights</p>
-    <p>You have the right to:</p>
-    <p>
-        •	Access the data we hold<br/>
-
-	•	Request correction or deletion<br/>
-
-	•	Stop receiving messages<br/>
-
-	•	Withdraw consent<br/>
-
-	•	Ask questions about how your data is used<br/>
-
-To exercise your rights, contact us at the email below.<br/>
-
-⸻
-    </p>
-    <p>7. Children’s Privacy</p>
-    <p>Our services are intended for students of Class 8 to 12.</p>
-    <p>We take extra precautions to protect minors’ data and use it only for educational purposes.<br/>
-       ⸻ 
-    </p>
-    <p>8. Changes to This Policy</p>
-    <p>
-        We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated date.
-    </p>
-        </div>
-         <div className="flex gap-40 mt-14 bg-linear-to-r from-yellow-200 to-yellow-200 h-96">
-                   <div className="ml-8 mt-14 text-black"><h1>MindVsYou</h1></div>
-                   <div className="mt-14">
-                       <ul className=" md:flex space-x-8 text-lg font-sans">
-                           <li>
-                             <li className="hover:text-black-600 font-sans font-bold"> Explore </li>
-                             <li className="hover:text-blue-600"> <Link to="/record/courses" className="text-black">Courses</Link></li>
-                             <li className="hover:text-blue-600"> <Link to="/record/about" className="text-black">About</Link></li>
-                             <li className="hover:text-blue-600"> <Link to="/record/contact" className="text-black">Contact</Link></li>
-                           </li>
-                       </ul>
-                   </div>
-                   <div className="mt-14">
-                        <ul className=" md:flex space-x-8 text-lg font-sans">
-                           <li >
-                             <li className="hover:text-black-600 font-sans font-bold">Follow</li>
-                             <li className="hover:text-blue-600"> <Link to="/record/courses" className="text-black">Facebook</Link></li>
-                             <li className="hover:text-blue-600"> <Link to="/record/admissionform" className="text-black">Instagram</Link></li>
-                             <li className="hover:text-blue-600"> <Link to="/record/contact" className="text-black">Twitter</Link></li>
-                           </li>
-                       </ul>
-                   </div>
-                   <div className="mt-14  border-0 text-shadow-black font-light flex-col">
-                       <label className='font-bold'>Sign up with your email address to receive news and updates.</label>
-                       <input className='w-96 mt-2 px-4 py-2 bg-gray-200 text-black border border-gray-700 rounded-lg
-                    focus:outline-none focus:ring-2 focus:ring-blue-50'
-                      />
-                        <div className='mt-2'>
-                       <Button className="bg-black mb-2 font-extrabold rounded-b-full px-6 py-3 shadow-2xl hover:shadow-white-400">SIGN UP </Button>
-                       </div>
-                   </div>
-               </div>
-        </>
-    )
-}
 export default PrivacyPolicy;

@@ -91,13 +91,13 @@ return (
             MindVsYou Coaching
           </h1>
   
-          <ul className="flex flex-wrap gap-4 mt-6 md:mt-4 text-white font-semibold text-sm md:text-base">
-            <li><Link to="/record/courses">Courses</Link></li>
-            <li><Link to="/record/about">About</Link></li>
-            <li><Link to="/record/contact">Contact</Link></li>
-            <li><Link to="/record/policy">Privacy Policy</Link></li>
-            <li><Link to="/record/blogs">Blogs</Link></li>
-            <li><Link to="/record/chatbot">Chatbot</Link></li>
+          <ul className="flex flex-wrap gap-4 mt-6 md:mt-4 text-white font-semibold text-sm md:text-base no-underline">
+            <li><Link to="/record/courses" className="no-underline! text-white">Courses</Link></li>
+            <li><Link to="/record/about" className="no-underline! text-white">About</Link></li>
+            <li><Link to="/record/contact" className="no-underline! text-white">Contact</Link></li>
+            <li><Link to="/record/policy" className="no-underline! text-white">Privacy Policy</Link></li>
+            <li><Link to="/record/blogs" className="no-underline! text-white">Blogs</Link></li>
+            <li><Link to="/record/chatbot" className="no-underline! text-white">Chatbot</Link></li>
           </ul>
         </div>
       </nav>
@@ -243,10 +243,10 @@ return (
   
           <div>
             <label className="font-semibold text-sm">
-              Sign up for updates
+              Sign up for updates!
             </label>
             <input
-              className="w-full mt-2 px-4 py-2 rounded border"
+              className="w-full mt-2 px-4 py-2 rounded border bg-white"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
