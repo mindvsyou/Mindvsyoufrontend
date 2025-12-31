@@ -1,237 +1,231 @@
-import React from 'react';
-import axios from 'axios';
+import React, { useEffect, useRef, useState } from "react";
+import axios from "axios";
 import { Button, Image } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { useState, useRef, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 
 const Courses = () => {
-     const [email, setEmail] = useState('')
-    const [loading, setLoading] = useState(false)
-    const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const sliderRef = useRef(null);
 
-    const emailSaveHandle = () => {
-        const data = {
-            email,
-        }
-        setLoading(true);
-        axios.post(`${import.meta.env.VITE_API_BASE_URL}/record/emailform`,data).then(()=>{
-            setLoading(false);
-            navigate('/record/emailsuccess');
-        }).catch((error)=>{
-            setLoading(false);
-            alert('an error occurred, please check email');
-            console.log(error);
-        })
-      }
+  const emailSaveHandle = () => {
+    setLoading(true);
+    axios
+      .post(`${import.meta.env.VITE_API_BASE_URL}/record/emailform`, { email })
+      .then(() => {
+        setLoading(false);
+        navigate("/record/emailsuccess");
+      })
+      .catch(() => {
+        setLoading(false);
+        alert("An error occurred, please check email");
+      });
+  };
 
   const sections = [
-  { slug: "class-8", title: "Class 8th" },
-  { slug: "class-9", title: "Class 9th" },
-  { slug: "class-10", title: "Class 10th" },
-  { slug: "class-11", title: "Class 11th" },
-  { slug: "class-12", title: "Class 12th" },
-  { slug: "iit-jee", title: "IIT JEE" },
-  { slug: "neet", title: "NEET" },
-];
+    { slug: "class-8", title: "Class 8th" },
+    { slug: "class-9", title: "Class 9th" },
+    { slug: "class-10", title: "Class 10th" },
+    { slug: "class-11", title: "Class 11th" },
+    { slug: "class-12", title: "Class 12th" },
+    { slug: "iit-jee", title: "IIT JEE" },
+    { slug: "neet", title: "NEET" },
+  ];
 
-const sliderRef = useRef(null);
-
-useEffect(() => {
-  const slider = sliderRef.current;
-
-  const interval = setInterval(() => {
-    if (slider) {
-      slider.scrollBy({
-        left: 300,
-        behavior: "smooth",
-      });
-
-      if (
-        slider.scrollLeft + slider.clientWidth >=
-        slider.scrollWidth - 10
-      ) {
-        setTimeout(() => {
-          slider.scrollTo({ left: 0, behavior: "smooth" });
-        }, 300);
+  useEffect(() => {
+    const slider = sliderRef.current;
+    const interval = setInterval(() => {
+      if (!slider) return;
+      slider.scrollBy({ left: 260, behavior: "smooth" });
+      if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 10) {
+        slider.scrollTo({ left: 0, behavior: "smooth" });
       }
-    }
-  }, 3000);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
-  return () => clearInterval(interval);
-}, []);
+  return (
+    <>
+      {/* NAVBAR */}
+      <nav className="bg-white shadow sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4">
+          <h1 className="font-bold text-xl">MindVsYou</h1>
 
-    return (
-      <>
-      <div>
-        <nav className="bg-cover bg-center bg-no-repeat h-20 border-1 border-amber-100" >
-          <div className="flex">
-            <ul className="flex space-x-4 ml-4 mt-4">
-              <li><Link to="/" className="text-black no-underline">Home</Link></li>
-              <li><Link to="" className="text-black no-underline">Courses For Kids</Link></li>
-              <li><Link to="/record/Pdfdetails" className="text-black no-underline">Study Materials</Link></li>
-              <li><Link to="" className="text-black no-underline">Offline Centers</Link></li>
-              <li><Link to="/record/contact" className="text-black no-underline">Contacts</Link></li>
-              <li><Link to="/record/about" className="text-black no-underline">About</Link></li>
-              <li className='ml-120'><button className='bg-gray-500 ml-60 rounded w-48 px-3 py-2'><Link to="" className=" text-white !no-underline">Talk to our expert</Link></button></li>
-            </ul>
-          </div>
-            </nav>
-            <div className="w-6xl h-56 border-2 rounded-2xl ml-24">
-              <div className="ml-8 mt-16">
-              <h1 className="text-7xl mt-8 ml-80">MindVsYou Learning</h1>
+          <ul className="flex flex-wrap gap-4 text-sm md:text-base">
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="">Courses For Kids</Link></li>
+            <li><Link to="/record/Pdfdetails">Study Materials</Link></li>
+            <li><Link to="">Offline Centers</Link></li>
+            <li><Link to="/record/contact">Contact</Link></li>
+            <li><Link to="/record/about">About</Link></li>
+          </ul>
+
+          <Link className="bg-gray-600 text-white px-4 py-2 rounded" to="">
+            Talk to our Expert
+          </Link>
+        </div>
+      </nav>
+
+      {/* HERO */}
+      <section className="max-w-7xl mx-auto px-4 py-16 text-center">
+        <h1 className="text-3xl md:text-5xl font-bold">
+          MindVsYou Learning
+        </h1>
+        <span className="inline-block mt-4 bg-lime-300 px-4 py-2 rounded">
+          Popular Courses
+        </span>
+      </section>
+
+      {/* COURSES */}
+      <section className="max-w-7xl mx-auto px-4">
+        <h2 className="text-2xl font-semibold mb-6">Explore Courses</h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {[
+            {
+              title: "Competitive Exams",
+              items: ["JEE", "NEET", "EAMCET", "JEE/NEET FOUNDATION"],
+            },
+            {
+              title: "School Tuitions",
+              items: ["CBSE", "ICSE", "All Boards"],
+            },
+            {
+              title: "Courses For Kids",
+              items: ["Math", "Science", "Coding", "Spoken English"],
+            },
+          ].map((card, idx) => (
+            <div
+              key={idx}
+              className="bg-cover bg-center rounded-2xl p-6"
+              style={{ backgroundImage: "url('/BookBack3.jpg')" }}
+            >
+              <h3 className="font-semibold mb-4">{card.title}</h3>
+              <div className="flex flex-wrap gap-2 mb-6">
+                {card.items.map((item) => (
+                  <span
+                    key={item}
+                    className="bg-red-500 px-2 py-1 rounded text-sm"
+                  >
+                    {item}
+                  </span>
+                ))}
               </div>
-              <div className="w-4xl h-56 border-2 rounded-4xl ml-30 mt-8">
-                <label className="bg-lime-300 text-black rounded ml-4 mt-4 px-2 py-2">Popular Courses</label>
-              </div>
+              <button className="bg-orange-500 px-4 py-2 rounded">
+                EXPLORE COURSES
+              </button>
             </div>
-            <div className="mt-52 ml-20">
-              <div>
-                <h1>Explore Courses</h1>
-              </div>
-              <div className="flex mt-4 space-x-10">
-                <div className=" rounded-2xl w-80 h-96">
-                  <div className="w-full h-96 bg-cover bg-center rounded-2xl"  
-                style={{ backgroundImage: "url('/BookBack3.jpg')" }}>
-                  <label className="font-medium ml-2 mt-2">Class 8-12</label>
-                  <h4 className="mt-0.5 ml-16">Competitive Exams</h4>
-                  <div className="flex flex-wrap gap-2 ml-4">
-                  <button className="bg-red-500 text-black font-medium px-2 py-2 rounded">JEE</button>
-                  <button className="bg-red-500 text-black font-medium px-2 py-2 rounded">NEET</button>
-                  <button className="bg-red-500 text-black font-medium px-2 py-2 rounded">EAMCET</button>
-                  <button className="bg-red-500 text-black font-medium px-2 py-2 rounded">JEE/NEET FOUNDATION</button>
-                  <button className="bg-red-500 text-black font-medium px-2 py-2 rounded">JEE Books</button>
-                  <button className="bg-red-500 text-black font-medium px-2 py-2 rounded">NEET Books</button>
-                  </div>
-                  <div className="ml-8 mt-24"><button className="bg-orange-500 hover:bg-red-200 text-black px-2 py-2 rounded">EXPLORE COURSES</button></div>
-                </div>
-                </div>
-                <div className="rounded-2xl w-80 h-96">
-                <div className="w-full h-96 bg-cover bg-center rounded-2xl"  
-                style={{ backgroundImage: "url('/BookBack3.jpg')" }}>
-                   <label className="font-medium ml-2 mt-2">Class 8-12</label>
-                  <h4 className="mt-0.5 ml-16">School Tutions</h4>
-                  <div className="flex flex-wrap gap-2 ml-4">
-                  <button className="bg-red-500 text-black font-medium px-2 py-2 rounded">CBSE BOARD</button>
-                  <button className="bg-red-500 text-black font-medium px-2 py-2 rounded">ICSE BOARD</button>
-                  <button className="bg-red-500 text-black font-medium px-2 py-2 rounded">8-12 ALL BOARDS</button>
-                  <button className="bg-red-500 text-black font-medium px-2 py-2 rounded">JEE/NEET FOUNDATION</button>
-                  </div>
-                  <div className="ml-8 mt-24"><button className="bg-orange-500 hover:bg-red-200 text-black px-2 py-2 rounded">EXPLORE COURSES</button></div>
-                </div>
-                </div>
-                <div className="rounded-2xl w-80 h-96">
-                  <div className="w-full h-96 bg-cover bg-center rounded-2xl"  
-                style={{ backgroundImage: "url('/BookBack3.jpg')" }}>
-                   <label className="font-medium ml-2 mt-2">Class 8-12</label>
-                  <h4 className="mt-0.5 ml-16">Courses For Kids</h4>
-                  <div className="flex flex-wrap gap-2 ml-4">
-                  <button className="bg-red-500 text-black font-medium px-2 py-2 rounded">LEARN MATH</button>
-                  <button className="bg-red-500 text-black font-medium px-2 py-2 rounded">LEARN SCIENCE</button>
-                  <button className="bg-red-500 text-black font-medium px-2 py-2 rounded">SPOKEN ENGLISH</button>
-                  <button className="bg-red-500 text-black font-medium px-2 py-2 rounded">LEARN CODING</button>
-                  </div>
-                  <div className="ml-8 mt-36"><button className="bg-orange-500 hover:bg-red-200 text-black px-2 py-2 rounded">EXPLORE COURSES</button></div>
-                </div>
-                </div>
-              </div>
-              
-            </div>
-            <div className="w-full h-96 bg-cover bg-center rounded-2xl mt-16"
-            style={{ backgroundImage: "url('/BookSession.jpg')" }}>
-              <div className="mt-4 ml-8">
-              <h1 className="mt-12">Book your free Demo Session</h1>
-              <h4>Get a free academic counselling session</h4>
-              <button className="h-24 w-56 rounded px-2 py-2 font-extrabold hover:hover:bg-red-200 bg-orange-500">Book a free demo</button>
-              </div>
-            </div>
-            <div>
-              <div>
-                <div className='mt-4 ml-4'>
-                <h1 className='text-5xl font-serif'>STUDY MATERIALS</h1>
-                </div>
-                <div className="w-full p-6 ">
-      <div className="w-full h-42 bg-cover bg-center rounded-2xl mt-0"
-            style={{ backgroundImage: "url('')" }}>
-      <div
-        ref={sliderRef}
-        className="flex space-x-4 overflow-x-auto scroll-smooth no-scrollbar "
+          ))}
+        </div>
+      </section>
+
+      {/* BOOK DEMO */}
+      <section
+        className="mt-16 bg-cover bg-center py-16"
+        style={{ backgroundImage: "url('/BookSession.jpg')" }}
       >
-        {sections.map((section) => (
-          <div
-            key={section.slug}
-            className="min-w-[250px] bg-gray-500 p-6 rounded-2xl mt-4 shadow-xl border animate-slide-left pause-hover border-black border-1"
-          >
-            <h3 className="text-white font-semibold">{section.title}</h3>
-            <button className="bg-orange-500 hover:bg-orange-600 text-black px-2 py-2 rounded">
-              <Link to={`/record/${section.slug}`} className='text-black !no-underline'>STUDY MATERIAL</Link>
-            </button>
-          </div>
-        ))}
-      </div>
-      </div>
-                </div>
-              </div>
-              <div className='ml-4'>
-                <h3 className='text-center'>Achieve more with MindVsYou, get Free online counselling now</h3>
-                <div className='flex justify-center space-x-4'>
-                  <div>
-                  <button className='bg-orange-600 hover:bg-orange-600 text-white px-2 py-2 rounded w-60'>Book A Demo</button>
-                  </div>
-                  <div>
-                  <button className='bg-white text-orange-600 font-medium border-2 border-black px-2 py-2 rounded w-60'>Learn Live</button>
-                  </div>
-                </div>
-              </div>
-              <div className='bg-orange-400 h-52 w-full rounded mt-4 text-white'>
-                <div className='ml-4'>
-                <h3 className='text-center'>Happy to help you!</h3>
-                <p>Need more details? Our expert academic counsellors will be happy to <br/>patiently explain everything that you want to know.</p>
-                <button className='bg-gray-900 text-white w-60 px-2 py-2 rounded font-medium'>Speak to an Expert</button>
-                </div>
-              </div>
-              <div className='mt-4 border-2 rounded px-4 py-4 bg-gray-300'
-              style={{ backgroundImage: "url('')" }}>
-                <h1>Learn from anywhere</h1>
-                <p>We’re available on Android devices and platforms. <br/>Study from anywhere at your convenience.</p>
-                <Image src='/google-play-store-badge.png' className='w-80' />
-              </div>
-              <div className="flex gap-40 mt-14 bg-linear-to-r from-gray-200 to-gray-300 h-96">
-                      <div className="ml-8 mt-14 text-black"><h1>MindVsYou</h1></div>
-                      <div className="mt-14">
-                          <ul className=" md:flex space-x-8 text-lg font-sans">
-                              <li>
-                                <li className="hover:text-black-600 font-sans"> Explore </li>
-                                <li className="hover:text-blue-600"> <Link to="/courses">Courses</Link></li>
-                                <li className="hover:text-blue-600"> <Link to="/about">About</Link></li>
-                                <li className="hover:text-blue-600"> <Link to="/contact">Contact</Link></li>
-                              </li>
-                          </ul>
-                      </div>
-                      <div className="mt-14">
-                           <ul className=" md:flex space-x-8 text-lg font-sans">
-                              <li >
-                                <li className="hover:text-black-600 font-sans"> Follow Us </li>
-                                <li className="hover:text-blue-600"> <Link to="/courses">Facebook</Link></li>
-                                <li className="hover:text-blue-600"> <Link to="/admissionform">Instagram</Link></li>
-                                <li className="hover:text-blue-600"> <Link to="/contact">Twitter</Link></li>
-                              </li>
-                          </ul>
-                      </div>
-                      <div className="mt-14  border-0 text-shadow-black font-light flex-col">
-                          <label className='font-bold'>Sign up with your email address to receive news and updates.</label>
-                          <input className='w-96 mt-2 px-4 py-2 bg-gray-200 text-black border border-gray-700 rounded-lg
-                       focus:outline-none focus:ring-2 focus:ring-blue-50' type='text' name='Email' value={email}
-                          onChange={(e)=> setEmail(e.target.value)}/>
-                           <div className='mt-2'>
-                          <Button className="bg-black mb-2 font-extrabold rounded-b-full px-6 py-3 shadow-2xl hover:shadow-white-400" onClick={emailSaveHandle}>SIGN UP </Button>
-                          </div>
-                      </div>
-            </div>
-            </div>
-          </div>
-      </>
-  )
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-3xl font-bold">
+            Book your free Demo Session
+          </h2>
+          <p>Get a free academic counselling session</p>
+          <button className="mt-4 bg-orange-500 px-6 py-3 rounded font-bold">
+            Book a Free Demo
+          </button>
+        </div>
+      </section>
 
-}
+      {/* STUDY MATERIAL SLIDER */}
+      <section className="max-w-7xl mx-auto px-4 mt-16">
+        <h2 className="text-3xl font-semibold mb-4">Study Materials</h2>
+        <div
+          ref={sliderRef}
+          className="flex gap-4 overflow-x-auto scroll-smooth"
+        >
+          {sections.map((section) => (
+            <div
+              key={section.slug}
+              className="min-w-[240px] bg-gray-500 p-6 rounded-xl text-white"
+            >
+              <h3 className="mb-4">{section.title}</h3>
+              <Link
+                to={`/record/${section.slug}`}
+                className="bg-orange-500 px-4 py-2 rounded text-black"
+              >
+                STUDY MATERIAL
+              </Link>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* SPEAK TO EXPERT */}
+      <section className="bg-orange-400 mt-16 py-12 text-white">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <h3 className="text-2xl font-semibold">Happy to help you!</h3>
+          <p className="mt-2">
+            Need more details? Our expert academic counsellors will patiently
+            explain everything.
+          </p>
+          <button className="mt-4 bg-gray-900 px-6 py-3 rounded">
+            Speak to an Expert
+          </button>
+        </div>
+      </section>
+
+      {/* GOOGLE PLAY */}
+      <section className="max-w-7xl mx-auto px-4 mt-16 bg-gray-300 rounded py-10">
+        <h2 className="text-2xl font-semibold">Learn from anywhere</h2>
+        <p className="mt-2">
+          We’re available on Android devices. Study anytime, anywhere.
+        </p>
+        <Image
+          src="/google-play-store-badge.png"
+          className="w-48 mt-4"
+        />
+      </section>
+
+      {/* FOOTER */}
+      <footer className="bg-gray-200 mt-20 py-12">
+        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+          <h2 className="font-bold text-xl">MindVsYou</h2>
+
+          <div>
+            <h4 className="font-semibold mb-2">Explore</h4>
+            <Link to="/courses">Courses</Link><br />
+            <Link to="/about">About</Link><br />
+            <Link to="/contact">Contact</Link>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Follow Us</h4>
+            <p>Facebook</p>
+            <p>Instagram</p>
+            <p>Twitter</p>
+          </div>
+
+          <div>
+            <label className="font-semibold">
+              Sign up for updates
+            </label>
+            <input
+              className="w-full mt-2 px-3 py-2 border rounded bg-amber-50"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Button
+              className="mt-3 bg-black"
+              disabled={loading}
+              onClick={emailSaveHandle}
+            >
+              SIGN UP
+            </Button>
+          </div>
+        </div>
+      </footer>
+    </>
+  );
+};
+
 export default Courses;

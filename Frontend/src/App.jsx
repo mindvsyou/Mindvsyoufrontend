@@ -4,7 +4,7 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import About from "./pages/About.jsx";
 import Courses from "./pages/Courses.jsx";
 import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
-import Testimonials from "./pages/Testimonials.jsx";
+import Blogs from "./pages/Blogs.jsx";
 import EmailSuccess from "./pages/EmailSuccess.jsx";
 import ContactSuccess from "./pages/ContactSuccess.jsx";
 import Contact from "./pages/Contact.jsx";  
@@ -13,6 +13,9 @@ import PdfList from "./pages/Pdflist.jsx";
 import ViewPdf from "./pages/Viewpdf.jsx";
 import EditPdf from "./pages/Editpdf.jsx";
 import PdfSection from "./pages/PdfSection.jsx";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import "./App.css";
 
 function App() {
@@ -23,7 +26,7 @@ function App() {
     <Route path = "/" element = {<Home />} />
     <Route path = "/record/courses" element = {<Courses />} />
     <Route path = "/record/aboutus" element = {<PrivacyPolicy />} />
-    <Route path = "/record/blogs" element = {<Testimonials />} />
+    <Route path = "/record/blogs" element = {<Blogs />} />
     <Route path = "/record/contact" element = {<Contact />} />
     <Route path = "/record/about" element = {<About />} />
     <Route path = "/record/contactsuccess" element = {<ContactSuccess />} />
