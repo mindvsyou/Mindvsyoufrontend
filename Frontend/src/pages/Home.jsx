@@ -295,4 +295,4 @@ export default Home;
 //git push origin HEAD:frontend
 //git add .
 //git commit -m "Describe your changes"
-//git push
+//git push origin HEAD:frontend
