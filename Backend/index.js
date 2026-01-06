@@ -5,6 +5,7 @@ import cloudinary from "./cloudinary.js";
 import mongoose from "mongoose";
 import { PORT, MONGO_URL } from "./config.js";
 import EmailRoute from "./routes/portfolioroutes.js"
+import AuthRoute from "./routes/authroutes.js"
 import cors from 'cors';
 
 
@@ -18,6 +19,7 @@ app.use(cors({
   origin: "http://localhost:5173"
 }));
 app.use("/record", EmailRoute);
+app.use("/api/auth", AuthRoute);
 
 mongoose
   .connect(MONGO_URL)

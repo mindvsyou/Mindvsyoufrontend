@@ -5,8 +5,9 @@ import path from "path";
 import { fileURLToPath } from "url";
 import Pdf from "../models/Pdf.js";
 import cloudinary from "../cloudinary.js";
-import upload from "../multer.js"
-
+import upload from "../multer.js";
+import isTeacher from "../middleware/isTeacher.js";
+import authMiddleware from "../middleware/middleware.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,7 +24,6 @@ router.post("/emailform", async (req, res) => {
 
     const newRecord = {
       email: req.body.email,
-      
     };
 
     const record = await Email.create(newRecord);
@@ -32,11 +32,16 @@ router.post("/emailform", async (req, res) => {
     console.log(error);
     res.status(500).send({ message: error.message });
   }
-})
+});
 
 router.post("/contactdata", async (req, res) => {
   try {
-    if (!req.body.firstname || !req.body.secondname || !req.body.email || !req.body.message) {
+    if (
+      !req.body.firstname ||
+      !req.body.secondname ||
+      !req.body.email ||
+      !req.body.message
+    ) {
       res.status(400).send({
         message: "Please input all the details",
       });
@@ -45,9 +50,8 @@ router.post("/contactdata", async (req, res) => {
     const newContactRecord = {
       firstname: req.body.firstname,
       secondname: req.body.secondname,
-      email:req.body.email,
-      message:req.body.message
-      
+      email: req.body.email,
+      message: req.body.message,
     };
 
     const contactrecord = await Contact.create(newContactRecord);
@@ -55,43 +59,46 @@ router.post("/contactdata", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: error.message });
-
-  }
-
-})
-
-router.post("/upload/:section", upload.single("pdf"), async (req, res) => {
-  try {
-    console.log("REQ BODY:", req.body);
-    console.log("REQ FILE:", req.file);
-    const {section} = req.params;
-    console.log("Uploading to section:", section);
-
-    if (!req.file) {
-      return res.status(400).json({ message: "PDF file not received" });
-    }
-
-    const folderName = `pdfs/${section.replace(/\s+/g, "-").toLowerCase()}`;
-    const result = await cloudinary.uploader.upload(req.file.path, {
-      resource_type: "raw",
-      folder: folderName,
-      
-    });
-
-    const pdf = await Pdf.create({
-      title: req.body.title,
-      pdfUrl: result.secure_url,
-      publicId: result.public_id,
-      section,
-    });
-
-    res.status(201).json(pdf);
-    console.log("CLOUDINARY URL:", result.secure_url);
-  } catch (err) {
-    console.error("UPLOAD ERROR:", err);
-    res.status(500).json({ message: err.message });
   }
 });
+
+router.post(
+  "/upload/:section",
+  authMiddleware,
+  isTeacher,
+  upload.single("pdf"),
+  async (req, res) => {
+    try {
+      console.log("REQ BODY:", req.body);
+      console.log("REQ FILE:", req.file);
+      const { section } = req.params;
+      console.log("Uploading to section:", section);
+
+      if (!req.file) {
+        return res.status(400).json({ message: "PDF file not received" });
+      }
+
+      const folderName = `pdfs/${section.replace(/\s+/g, "-").toLowerCase()}`;
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        resource_type: "raw",
+        folder: folderName,
+      });
+
+      const pdf = await Pdf.create({
+        title: req.body.title,
+        pdfUrl: result.secure_url,
+        publicId: result.public_id,
+        section,
+      });
+
+      res.status(201).json(pdf);
+      console.log("CLOUDINARY URL:", result.secure_url);
+    } catch (err) {
+      console.error("UPLOAD ERROR:", err);
+      res.status(500).json({ message: err.message });
+    }
+  }
+);
 
 /* Get pdf by section */
 router.get("/pdfs/:section", async (req, res) => {
@@ -107,7 +114,7 @@ router.get("/pdfs/:section", async (req, res) => {
 });
 
 /* delete pdf by section */
-router.delete("/pdfs/:id", async (req, res) => {
+router.delete("/pdfs/:id", authMiddleware, isTeacher, async (req, res) => {
   try {
     const pdf = await Pdf.findById(req.params.id);
     if (!pdf) return res.status(404).json({ message: "PDF not found" });
@@ -124,7 +131,6 @@ router.delete("/pdfs/:id", async (req, res) => {
   }
 });
 
-
 /* 🔹 Get All PDFs */
 router.get("/pdfs", async (req, res) => {
   const pdfs = await Pdf.find().sort({ createdAt: -1 });
@@ -132,7 +138,7 @@ router.get("/pdfs", async (req, res) => {
 });
 
 /* 🔹 Update PDF Title */
-router.put("/pdfs/:id", async (req, res) => {
+router.put("/pdfs/:id", authMiddleware, isTeacher, async (req, res) => {
   const updated = await Pdf.findByIdAndUpdate(
     req.params.id,
     { title: req.body.title },
@@ -140,9 +146,5 @@ router.put("/pdfs/:id", async (req, res) => {
   );
   res.json(updated);
 });
-
-
- 
-
 
 export default router;

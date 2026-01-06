@@ -22,7 +22,12 @@ const UploadPdf = () => {
 
     await axios.post(
       `${import.meta.env.VITE_API_BASE_URL}/record/upload/${section}`,
-      formData
+      formData,
+  {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  }
     );
 
     alert("PDF uploaded");
