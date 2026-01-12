@@ -44,6 +44,10 @@ function App() {
     <Route path="/api/auth/teacher-login" element={<TeacherLogin />} />
     <Route path="/api/auth/teacher-dashboard" element={<TeacherDashboard />} />
     <Route path="/api/auth/teacher-register" element={<TeacherRegister />} />
+    <Route
+  path="/record/:section/:subject/upload"
+  element={<UploadPdf />}
+/>
     
   </Routes>
  

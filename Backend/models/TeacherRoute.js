@@ -10,6 +10,11 @@ const teacherSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+   role: {
+    type: String,
+    default: "teacher",
+  },
+
 });
 
 export default mongoose.model("Teacher", teacherSchema);

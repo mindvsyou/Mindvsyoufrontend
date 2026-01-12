@@ -47,18 +47,21 @@ router.post("/teacher-login", async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: teacher._id,
-        role: teacher.role,
-       },
+      {
+        id: teacher._id,
+        role: teacher.role, // ✅ now exists
+      },
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
 
     res.json({ token });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Login failed" });
   }
 });
+
 
 router.get("/teacher/dashboard", authMiddleware, (req, res) => {
   res.json({ message: "Welcome Teacher" });

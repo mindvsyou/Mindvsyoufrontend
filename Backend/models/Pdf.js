@@ -6,6 +6,7 @@ const pdfSchema = new mongoose.Schema(
     pdfUrl: { type: String, required: true },
     publicId: { type: String, required: true },
     section: { type: String, required: false },
+    subject: { type: String, required: false },
   },
   { timestamps: true }
 );

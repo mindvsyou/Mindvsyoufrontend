@@ -12,7 +12,28 @@ import authMiddleware from "../middleware/middleware.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const goals = [
+  { id: 1, title: "Class PYQs", icon: "📝" },   // Previous Year Questions
+  { id: 2, title: "Class 12th", icon: "🎓" },
+  { id: 3, title: "Class 11th", icon: "📘" },
+  { id: 4, title: "Class 10th", icon: "📕" },
+  { id: 5, title: "Class 9th", icon: "📗" },
+  { id: 6, title: "Class 8th", icon: "📙" },
+];
+
 const router = express.Router();
+
+//Homepage Goals Slider 
+router.get("/goals", (req, res) => {
+  const search = req.query.search?.toLowerCase() || "";
+
+  const filteredGoals = goals.filter((goal) =>
+    goal.title.toLowerCase().includes(search)
+  );
+
+  res.json(filteredGoals);
+});
+
 //posting on to the server
 router.post("/emailform", async (req, res) => {
   try {
@@ -63,7 +84,7 @@ router.post("/contactdata", async (req, res) => {
 });
 
 router.post(
-  "/upload/:section",
+  "/upload/:section/:subject",
   authMiddleware,
   isTeacher,
   upload.single("pdf"),
@@ -71,7 +92,7 @@ router.post(
     try {
       console.log("REQ BODY:", req.body);
       console.log("REQ FILE:", req.file);
-      const { section } = req.params;
+      const { section, subject } = req.params;
       console.log("Uploading to section:", section);
 
       if (!req.file) {
@@ -89,6 +110,7 @@ router.post(
         pdfUrl: result.secure_url,
         publicId: result.public_id,
         section,
+        subject, 
       });
 
       res.status(201).json(pdf);
@@ -101,11 +123,11 @@ router.post(
 );
 
 /* Get pdf by section */
-router.get("/pdfs/:section", async (req, res) => {
+router.get("/pdfs/:section/:subject", async (req, res) => {
   try {
-    const { section } = req.params;
+    const { section, subject } = req.params;
 
-    const pdfs = await Pdf.find({ section });
+    const pdfs = await Pdf.find({ section, subject });
 
     res.json(pdfs);
   } catch (err) {

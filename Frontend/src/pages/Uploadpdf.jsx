@@ -1,10 +1,9 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const UploadPdf = () => {
-  const { section } = useParams();
+  const { section, subject } = useParams(); // 👈 subject added
   const [title, setTitle] = useState("");
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
@@ -16,42 +15,45 @@ const UploadPdf = () => {
 
     const formData = new FormData();
     formData.append("title", title);
-    formData.append("pdf", file); // must match multer field name
-
-    console.log("Uploading for section:", section); // ✅ debug
+    formData.append("subject", subject); // 👈 important
+    formData.append("pdf", file);
 
     await axios.post(
-      `${import.meta.env.VITE_API_BASE_URL}/record/upload/${section}`,
+      `http://localhost:5000/record/upload/${section}/${subject}`,
       formData,
-  {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-  }
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
     );
 
-    alert("PDF uploaded");
+    alert("PDF uploaded successfully");
     navigate(`/record/${section}`);
-    
   };
 
   return (
-    <form onSubmit={handleUpload} className="p-6">
-      <h2 className="text-xl font-bold mb-4">Upload PDF for {section}</h2>
+    <form className="p-6 max-w-md mx-auto" onSubmit={handleUpload}>
+      <h2 className="text-xl font-bold mb-4">
+        Upload {subject.toUpperCase()} PDF ({section})
+      </h2>
 
       <input
         className="border p-2 w-full mb-3"
-        placeholder="Title"
-        onChange={e => setTitle(e.target.value)}
+        placeholder="PDF Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        required
       />
 
       <input
         type="file"
         accept="application/pdf"
-        onChange={e => setFile(e.target.files[0])}
+        onChange={(e) => setFile(e.target.files[0])}
+        required
       />
 
-      <button className="bg-blue-600 text-white px-4 py-2 mt-4">
+      <button className="bg-blue-600 text-white px-4 py-2 mt-4 rounded">
         Upload
       </button>
     </form>
@@ -59,3 +61,4 @@ const UploadPdf = () => {
 };
 
 export default UploadPdf;
+

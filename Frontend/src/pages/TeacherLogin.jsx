@@ -27,8 +27,12 @@ const TeacherLogin = () => {
         return;
       }
 
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("role", "teacher");
+      
+       localStorage.setItem("token", data.token);
+
+      // ✅ DECODE TOKEN → STORE ROLE (SYNC WITH BACKEND)
+      const decoded = JSON.parse(atob(data.token.split(".")[1]));
+      localStorage.setItem("role", decoded.role.toLowerCase());
 
       navigate("/");
     } catch {

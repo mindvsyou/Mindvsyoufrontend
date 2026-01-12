@@ -9,14 +9,19 @@ import { Star } from "lucide-react";
 import { User } from "lucide-react";
 import isTeacher from "../../middleware/isTeacher.js";
 import { logout } from "../pages/logout.jsx";
+import { Search } from "lucide-react";
+import SelectGoal from "./SelectGoal.jsx";
+import { CheckCircle } from "lucide-react";
+import FeaturesSection from "./FeatureSection.jsx";
+import GetAppSection from "./GetAppSection.jsx";
+import StartLearningSection from "./StartLearningSection.jsx";
+import Footer from "./Footer.jsx";
 
 const Home = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const sliderRef = useRef(null);
-  
-
   
 
   const slideLeft = () => {
@@ -64,6 +69,7 @@ const Home = () => {
     },
   ];
 
+
   const emailSaveHandle = () => {
     const data = {
       email,
@@ -87,52 +93,54 @@ const Home = () => {
       {/* NAVBAR */}
       {/* NAVBAR */}
 <nav
-  className="w-full bg-center bg-cover bg-black"
-  style={{ backgroundImage: "url('/5.png')" }}
+  className="w-full bg-center bg-contain bg-black"
+  style={{ backgroundImage: "url('/personalbrand.png')" }}
 >
-  {/* HEIGHT CONTROLLER */}
-  <div className="min-h-[220px] sm:min-h-[260px] md:min-h-[320px] flex items-start pt-2">
-    
-    {/* CONTENT WRAPPER */}
-    <div className="w-full max-w-7xl mx-auto px-4">
-      <ul className="flex flex-wrap justify-center gap-3 sm:gap-6 text-white font-semibold text-sm sm:text-base">
-        <li>
-          <Link to="/record/courses" className="text-white no-underline">
+  <div className="w-full bg-white border-1 border-gray-200 h-18 flex">
+    <div className="mt-1 ml-3">
+        <img src="/mindvsyou-logo.JPG" className="w-16 h-16" />
+      </div>
+     <div className="w-full mt-4 flex">
+      
+      <ul className="flex flex-wrap justify-center gap-3 sm:gap-6 text-white text-sm sm:text-base">
+        
+        <li className="text-sm font-medium">
+          <Link to="/record/courses" className="text-black !no-underline">
             Courses
           </Link>
         </li>
-        <li>
-          <Link to="/record/about" className="text-white no-underline">
+        <li className="text-sm font-medium">
+          <Link to="/record/about" className="text-black !no-underline">
             About
           </Link>
-        </li>
-        <li>
-          <Link to="/record/contact" className="text-white no-underline">
+        </li >
+        <li className="text-sm font-medium">
+          <Link to="/record/contact" className="text-black !no-underline">
             Contact
           </Link>
         </li>
-        <li>
-          <Link to="/record/policy" className="text-white no-underline">
+        <li className="text-sm font-medium">
+          <Link to="/record/policy" className="text-black !no-underline">
             Privacy Policy
           </Link>
         </li>
-        <li>
-          <Link to="/record/blogs" className="text-white no-underline">
+        <li className="text-sm font-medium">
+          <Link to="/record/blogs" className="text-black !no-underline">
             Blogs
           </Link>
         </li>
-        <li>
+        <li className="ml-156">
           {isTeacher() ? (
             <button
               onClick={logout}
-              className="text-white font-semibold"
+              className="text-black font-semibold"
             >
               Logout
             </button>
           ) : (
             <Link
               to="/api/auth/teacher-login"
-              className="text-white no-underline"
+              className="text-black text-sm !no-underline border-1 border-black rounded px-2 py-2 font-medium hover:bg-gray-100 ml-24"
             >
               Teacher Login
             </Link>
@@ -141,158 +149,195 @@ const Home = () => {
       </ul>
     </div>
   </div>
+  {/* HEIGHT CONTROLLER */}
+  <div className="min-h-[220px] sm:min-h-[260px] md:min-h-[320px] flex items-start pt-2">
+    
+    {/* CONTENT WRAPPER */}
+   
+  </div>
 </nav>
-
-
-
-      {/* HERO */}
-      <section className="py-12 sm:py-16 bg-gradient-to-r from-purple-100 to-purple-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-          <div className="text-center md:text-left">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif font-medium">
-              WHERE MIND MEETS MASTERY
-            </h1>
-            <p className="mt-4 text-sm sm:text-base">
-              Learn from top educators and achieve your goals with mentorship.
-            </p>
-            <Button className="mt-6 bg-black px-6 py-3 rounded-xl">
-              <Link to="/record/courses" className="text-white no-underline">
-                Explore Courses
-              </Link>
-            </Button>
-          </div>
-
-          <div className="w-full h-[260px] sm:h-[360px] md:h-[480px] relative rounded-xl overflow-hidden">
-            <video
-              className="absolute inset-0 w-full h-full object-contain"
-              autoPlay
-              loop
-              muted
-              playsInline
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* INSTRUCTOR */}
-      <section className="py-12 sm:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center gap-10">
-          <div className="flex-1 text-center md:text-left">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">
-              Introducing your expert guide
-            </h1>
-            <p className="mt-4 text-sm sm:text-base">
-              Step into a classroom led by visionaries.
-            </p>
-          </div>
-          <Image
-            src="/lamp.jpg"
-            className="w-full md:w-1/2 rounded-lg object-cover"
-          />
-        </div>
-      </section>
-
-      {/* TESTIMONIALS */}
-      <section className="relative py-12 sm:py-16">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-6">
-          What Our Customers Say
-        </h2>
-
-        {/* Desktop Arrows */}
-        <button
-          onClick={slideLeft}
-          className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 text-white p-3 rounded-full"
-        >
-          <ChevronLeft size={28} />
-        </button>
-
-        <div
-          ref={sliderRef}
-          className="flex gap-4 sm:gap-6 overflow-x-auto scroll-smooth px-4 sm:px-6"
-        >
-          {testimonials.map((t, i) => (
-            <div
-              key={i}
-              className="min-w-[260px] sm:min-w-[300px] bg-white p-5 sm:p-6 rounded-xl shadow-lg"
-            >
-              <div className="flex gap-1 mb-3">
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <Star key={s} size={16} className="text-yellow-400 fill-yellow-400" />
-                ))}
-              </div>
-              <p className="text-sm italic mb-4">“{t.message}”</p>
-              <h3 className="font-semibold">{t.name}</h3>
-            </div>
-          ))}
-        </div>
-
-        <button
-          onClick={slideRight}
-          className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 text-white p-3 rounded-full"
-        >
-          <ChevronRight size={28} />
-        </button>
-      </section>
-
-      {/* APP PROMO */}
-      <section className="py-10 bg-gray-200 text-center px-4">
-        <h1 className="text-xl font-bold">Learn from anywhere</h1>
-        <p className="mt-2 text-sm sm:text-base">
-          Study from anywhere at your convenience.
-        </p>
-        <Image src="/google-play-store-badge.png" className="mx-auto w-40 sm:w-48 mt-4" />
-      </section>
-
-      {/* CTA */}
-      <section className="py-10 text-center px-4">
-        <h3 className="font-semibold">Know more about our courses!</h3>
-        <p className="text-sm">Book a free counselling session</p>
-        <div className="mt-4 flex flex-col sm:flex-row justify-center items-center gap-3">
-          <User className="w-6 h-6 text-gray-700" />
-          <button className="bg-gray-800 text-white px-6 py-2 rounded">
-            Speak to an Expert
-          </button>
-        </div>
-      </section>
-
-      <Image src="/personalbrand.png" className="w-full h-auto object-cover" />
-
-      {/* FOOTER */}
-      <footer className="bg-blue-400 py-14">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-          <h1 className="text-xl font-bold text-black">MindVsYou</h1>
-
-          <div>
-            <h3 className="font-semibold mb-2 font-medium text-black">Explore</h3>
-            <ul className="space-y-1">
-              <li><Link to="/courses" className="text-black font-medium">Courses</Link></li>
-              <li><Link to="/about" className="text-black font-medium">About</Link></li>
-              <li><Link to="/contact" className="text-black font-medium">Contact</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold mb-2 font-medium text-black">Follow Us</h3>
-            <ul className="space-y-1">
-              <li className="text-black font-medium">Facebook</li>
-              <li className="text-black font-medium">Instagram</li>
-              <li className="text-black font-medium">Twitter</li>
-            </ul>
-          </div>
-
-          <div>
-            <label className="font-semibold text-sm text-black">Sign up for updates!</label>
+   
+   <div className="flex mt-24 ml-6">
+    <div className="mt-36">
+    <div className="ml-6">
+    <p className="text-2xl md:text-5xl font-bold text-gray-800">
+      Crack your goals with <br/>India’s top educators
+    </p>
+    </div>
+     <div className="max-w-7xl mx-auto px-6">
+      <p className="font-semibold text-gray-800 ">Know more about our courses.</p>
+      <div>
             <input
-              className="w-full mt-2 px-4 py-2 rounded border bg-amber-50"
+              className="w-full px-4 py-2 rounded border"
               value={email}
+              placeholder="Enter your email address"
               onChange={(e) => setEmail(e.target.value)}
             />
-            <Button className="mt-3 w-full bg-black" onClick={emailSaveHandle}>
-              {loading ? "Please wait..." : "SIGN UP"}
-            </Button>
+          </div>
+        <div className="flex">
+          <button className="bg-gray-600 text-white px-6 py-2 rounded font-medium text-xs w-100 mt-2" onClick={emailSaveHandle}>
+            Join for free
+          </button>
+        </div>
+      </div>
+      </div>
+      <div>
+        <img src="/contactUspage.JPG" className="rounded-4xl w-136 h-136 ml-40"/>
+      </div>
+    </div>
+
+    <div className="mt-24 ml-6 text-gray-800">
+          <SelectGoal />
+    </div>
+    
+    <div>
+      <section className="max-w-7xl mx-auto px-6 py-16">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          
+          {/* Left Image */}
+          <div className="rounded-xl overflow-hidden">
+            <img
+              src="/Classroom.jpeg" // replace with your image path
+              alt="Unacademy Centre"
+              className="w-full h-96 object-cover"
+            />
+          </div>
+
+          {/* Right Content */}
+          <div>
+            {/* Badge */}
+            <p className="text-sm font-bold text-blue-600 uppercase tracking-wide">
+              Introducing ✨
+            </p>
+
+            {/* Heading */}
+            <p className="mt-2 text-2xl md:text-3xl font-bold text-gray-800">
+              MindVsYou Centre for CBSE and ICSE Preparation
+            </p>
+
+            {/* Description */}
+            <p className="mt-4 text-gray-600 text-base font-medium">
+              Admissions open in Lucknow!
+            </p>
+
+            {/* Feature List */}
+            <ul className="mt-6 space-y-4">
+              <li className="flex items-start gap-3">
+                <CheckCircle className="text-blue-600 mt-1" size={20} />
+                <span className="text-gray-700">
+                  Learn from top educators in your city
+                </span>
+              </li>
+
+              <li className="flex items-start gap-3">
+                <CheckCircle className="text-blue-600 mt-1" size={20} />
+                <span className="text-gray-700">
+                  In-person classes & doubt solving
+                </span>
+              </li>
+
+              <li className="flex items-start gap-3">
+                <CheckCircle className="text-blue-600 mt-1" size={20} />
+                <span className="text-gray-700">
+                  Bonus access to online learning
+                </span>
+              </li>
+            </ul>
+
+            {/* CTA */}
+            <button className="mt-8 inline-block bg-[#3c4852] hover:bg-[#2f3a42] text-white font-semibold px-6 py-3 rounded transition">
+              Whatsapp Us!
+            </button>
           </div>
         </div>
-      </footer>
+      </div>
+    </section>
+    </div>
+
+    <div>
+      <FeaturesSection />
+    </div>
+
+          {/* TESTIMONIALS */}
+<section className="bg-[#f7f9fb] py-14 sm:py-20 relative">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6">
+    
+    {/* Heading */}
+    <div className="text-center mb-10">
+      <p className="text-sm text-gray-600 mb-2 font-medium">
+        ⭐ Rated <span className="font-semibold">4.9/5</span> by Parents & Students
+      </p>
+      <p className="text-2xl sm:text-3xl font-bold text-gray-800">
+        What our learners say
+      </p>
+    </div>
+
+    {/* Left Arrow */}
+    <button
+      onClick={slideLeft}
+      className="hidden md:flex items-center justify-center absolute left-6 top-1/2 -translate-y-1/2 bg-white border border-gray-200 shadow-sm w-10 h-10 rounded-full hover:bg-gray-50"
+    >
+      <ChevronLeft className="w-5 h-5 text-gray-600" />
+    </button>
+
+    {/* Slider */}
+    <div
+      ref={sliderRef}
+      className="flex gap-4 sm:gap-6 overflow-x-auto scroll-smooth pb-4 no-scrollbar"
+    >
+      {testimonials.map((t, i) => (
+        <div
+          key={i}
+          className="min-w-[280px] sm:min-w-[320px] bg-white border border-gray-200 rounded-xl p-5 sm:p-6"
+        >
+          {/* Stars */}
+          <div className="flex gap-1 mb-3">
+            {[1, 2, 3, 4, 5].map((s) => (
+              <Star
+                key={s}
+                className="w-4 h-4 text-yellow-400 fill-yellow-400"
+              />
+            ))}
+          </div>
+
+          {/* Message */}
+          <p className="text-sm text-gray-700 leading-relaxed mb-5">
+            “{t.message}”
+          </p>
+
+          {/* User */}
+          <div>
+            <h3 className="font-semibold text-gray-900 text-sm">
+              {t.name}
+            </h3>
+            <p className="text-xs text-gray-500">{t.class}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    {/* Right Arrow */}
+    <button
+      onClick={slideRight}
+      className="hidden md:flex items-center justify-center absolute right-6 top-1/2 -translate-y-1/2 bg-white border border-gray-200 shadow-sm w-10 h-10 rounded-full hover:bg-gray-50"
+    >
+      <ChevronRight className="w-5 h-5 text-gray-600" />
+    </button>
+  </div>
+</section>
+
+    <div>
+      <GetAppSection />
+    </div>
+
+    <div>
+      <StartLearningSection />
+    </div>
+
+    <div>
+      < Footer />
+    </div>
     </div>
   );
 };
