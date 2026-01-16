@@ -12,7 +12,7 @@ const SelectGoal = () => {
   const fetchGoals = async (query = "") => {
     setLoading(true);
     const res = await axios.get(
-      `http://localhost:5000/record/goals?search=${query}`
+      `${import.meta.env.VITE_API_BASE_URL}/record/goals?search=${query}`
     );
     setGoals(res.data);
     setLoading(false);
@@ -28,6 +28,10 @@ const SelectGoal = () => {
     setSearch(value);
     fetchGoals(value);
   };
+
+  const normalize = (title) =>
+  title.toLowerCase().replace(/\s+/g, "");
+
 
   return (
     <section className="max-w-7xl mx-auto px-6 py-14">
@@ -78,7 +82,11 @@ const SelectGoal = () => {
                 {goal.title}
               </p>
               <Link
-                to={`/record/${goal.title}`}
+                to={
+    goal.title.toLowerCase().includes("pyq")
+      ? "/record/pyq"
+      : `/record/${normalize(goal.title)}`
+  }
                 className="bg-orange-300 px-4 py-2 rounded !text-gray-800 !no-underline text-xs font-bold"
               >
                 STUDY MATERIAL

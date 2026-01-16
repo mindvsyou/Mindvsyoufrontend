@@ -3,7 +3,10 @@ import axios from "axios";
 import { useState } from "react";
 
 const UploadPdf = () => {
-  const { section, subject } = useParams(); // 👈 subject added
+  const params = useParams();
+  const section = params.section;
+  const classname = params.classname;
+  const subject = params.subject.toLowerCase();
   const [title, setTitle] = useState("");
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
@@ -15,28 +18,36 @@ const UploadPdf = () => {
 
     const formData = new FormData();
     formData.append("title", title);
-    formData.append("subject", subject); // 👈 important
     formData.append("pdf", file);
 
-    await axios.post(
-      `http://localhost:5000/record/upload/${section}/${subject}`,
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
+    // 🔥 DECIDE URL BASED ON SECTION
+    const uploadUrl =
+      section === "pyq"
+        ? `${import.meta.env.VITE_API_BASE_URL}/record/upload/pyq/${classname}/${subject}`
+        : `${import.meta.env.VITE_API_BASE_URL}/record/upload/${section}/${subject}`;
+
+    await axios.post(uploadUrl, formData, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
 
     alert("PDF uploaded successfully");
-    navigate(`/record/${section}`);
+
+    // 🔁 Redirect correctly
+    if (section === "pyq") {
+      navigate(`/record/pyq/${classname}/${subject}`);
+    } else {
+      navigate(`/record/${section}`);
+    }
   };
 
   return (
-    <form className="p-6 max-w-md mx-auto" onSubmit={handleUpload}>
-      <h2 className="text-xl font-bold mb-4">
-        Upload {subject.toUpperCase()} PDF ({section})
-      </h2>
+    <form className="p-6 max-w-md mx-auto mt-24" onSubmit={handleUpload}>
+      <p className="text-xl font-bold text-gray-800 mb-4">
+        Upload {subject.toUpperCase()} PDF
+        {section === "pyq" && ` (${classname.toUpperCase()})`}
+      </p>
 
       <input
         className="border p-2 w-full mb-3"
@@ -53,7 +64,7 @@ const UploadPdf = () => {
         required
       />
 
-      <button className="bg-blue-600 text-white px-4 py-2 mt-4 rounded">
+      <button className="bg-green-600 text-white px-4 py-2 mt-4 rounded text-xs font-bold">
         Upload
       </button>
     </form>
@@ -61,4 +72,5 @@ const UploadPdf = () => {
 };
 
 export default UploadPdf;
+
 

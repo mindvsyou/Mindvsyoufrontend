@@ -90,16 +90,14 @@ router.post(
   upload.single("pdf"),
   async (req, res) => {
     try {
-      console.log("REQ BODY:", req.body);
-      console.log("REQ FILE:", req.file);
       const { section, subject } = req.params;
-      console.log("Uploading to section:", section);
 
       if (!req.file) {
         return res.status(400).json({ message: "PDF file not received" });
       }
 
-      const folderName = `pdfs/${section.replace(/\s+/g, "-").toLowerCase()}`;
+      const folderName = `pdfs/${section}/${subject}`;
+
       const result = await cloudinary.uploader.upload(req.file.path, {
         resource_type: "raw",
         folder: folderName,
@@ -110,24 +108,80 @@ router.post(
         pdfUrl: result.secure_url,
         publicId: result.public_id,
         section,
-        subject, 
+        subject,
+        classname: null,
       });
 
       res.status(201).json(pdf);
-      console.log("CLOUDINARY URL:", result.secure_url);
     } catch (err) {
-      console.error("UPLOAD ERROR:", err);
       res.status(500).json({ message: err.message });
     }
   }
 );
+
+router.post(
+  "/upload/pyq/:classname/:subject",
+  authMiddleware,
+  isTeacher,
+  upload.single("pdf"),
+  async (req, res) => {
+    try {
+      const { classname, subject } = req.params;
+
+      if (!req.file) {
+        return res.status(400).json({ message: "PDF file not received" });
+      }
+
+      const folderName = `pdfs/pyq/${classname}/${subject}`;
+
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        resource_type: "raw",
+        folder: folderName,
+      });
+
+      const pdf = await Pdf.create({
+        title: req.body.title,
+        pdfUrl: result.secure_url,
+        publicId: result.public_id,
+        section: "pyq",
+        subject,
+        classname,
+      });
+
+      res.status(201).json(pdf);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  }
+);
+
 
 /* Get pdf by section */
 router.get("/pdfs/:section/:subject", async (req, res) => {
   try {
     const { section, subject } = req.params;
 
-    const pdfs = await Pdf.find({ section, subject });
+    const pdfs = await Pdf.find({
+      section,
+      subject,
+      classname: null,
+    }).sort({ createdAt: -1 });
+
+    res.json(pdfs);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.get("/pdfs/pyq/:classname/:subject", async (req, res) => {
+  try {
+    const { classname, subject } = req.params;
+
+    const pdfs = await Pdf.find({
+      section: "pyq",
+      classname,
+      subject,
+    }).sort({ createdAt: -1 });
 
     res.json(pdfs);
   } catch (err) {
@@ -136,7 +190,7 @@ router.get("/pdfs/:section/:subject", async (req, res) => {
 });
 
 /* delete pdf by section */
-router.delete("/pdfs/:id", authMiddleware, isTeacher, async (req, res) => {
+router.delete("/pdf/:section/:subject/:id", authMiddleware, isTeacher, async (req, res) => {
   try {
     const pdf = await Pdf.findById(req.params.id);
     if (!pdf) return res.status(404).json({ message: "PDF not found" });
@@ -160,7 +214,7 @@ router.get("/pdfs", async (req, res) => {
 });
 
 /* 🔹 Update PDF Title */
-router.put("/pdfs/:id", authMiddleware, isTeacher, async (req, res) => {
+router.put("/pdf/:section/:subject/:id", authMiddleware, isTeacher, async (req, res) => {
   const updated = await Pdf.findByIdAndUpdate(
     req.params.id,
     { title: req.body.title },

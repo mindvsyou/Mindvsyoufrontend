@@ -91,100 +91,91 @@ const Home = () => {
   return (
      <div className="w-full overflow-x-hidden">
       {/* NAVBAR */}
-      {/* NAVBAR */}
 <nav
-  className="w-full bg-center bg-contain bg-black"
+  className="w-full bg-center bg-contain bg-no-repeat bg-black"
   style={{ backgroundImage: "url('/personalbrand.png')" }}
 >
-  <div className="w-full bg-white border-1 border-gray-200 h-18 flex">
-    <div className="mt-1 ml-3">
-        <img src="/mindvsyou-logo.JPG" className="w-16 h-16" />
-      </div>
-     <div className="w-full mt-4 flex">
-      
-      <ul className="flex flex-wrap justify-center gap-3 sm:gap-6 text-white text-sm sm:text-base">
-        
-        <li className="text-sm font-medium">
-          <Link to="/record/courses" className="text-black !no-underline">
-            Courses
-          </Link>
-        </li>
-        <li className="text-sm font-medium">
-          <Link to="/record/about" className="text-black !no-underline">
-            About
-          </Link>
-        </li >
-        <li className="text-sm font-medium">
-          <Link to="/record/contact" className="text-black !no-underline">
-            Contact
-          </Link>
-        </li>
-        <li className="text-sm font-medium">
-          <Link to="/record/policy" className="text-black !no-underline">
-            Privacy Policy
-          </Link>
-        </li>
-        <li className="text-sm font-medium">
-          <Link to="/record/blogs" className="text-black !no-underline">
-            Blogs
-          </Link>
-        </li>
-        <li className="ml-156">
-          {isTeacher() ? (
-            <button
-              onClick={logout}
-              className="text-black font-semibold"
-            >
-              Logout
-            </button>
-          ) : (
-            <Link
-              to="/api/auth/teacher-login"
-              className="text-black text-sm !no-underline border-1 border-black rounded px-2 py-2 font-medium hover:bg-gray-100 ml-24"
-            >
-              Teacher Login
-            </Link>
-          )}
-        </li>
+  <div className="w-full bg-white border border-gray-200 h-18">
+    <div className="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
+
+      {/* LOGO */}
+      <img src="/mindvsyou-logo.JPG" className="w-14 h-14" />
+
+      {/* CENTER MENU */}
+      <ul className="flex flex-wrap justify-center gap-4 text-sm font-medium">
+        <li><Link to="/record/courses" className="text-black !no-underline">Courses</Link></li>
+        <li><Link to="/record/about" className="text-black !no-underline">About</Link></li>
+        <li><Link to="/record/contact" className="text-black !no-underline">Contact</Link></li>
+        <li><Link to="/record/policy" className="text-black !no-underline">Privacy Policy</Link></li>
+        <li><Link to="/record/blogs" className="text-black !no-underline">Blogs</Link></li>
       </ul>
-    </div>
-  </div>
-  {/* HEIGHT CONTROLLER */}
-  <div className="min-h-[220px] sm:min-h-[260px] md:min-h-[320px] flex items-start pt-2">
-    
-    {/* CONTENT WRAPPER */}
-   
-  </div>
-</nav>
-   
-   <div className="flex mt-24 ml-6">
-    <div className="mt-36">
-    <div className="ml-6">
-    <p className="text-2xl md:text-5xl font-bold text-gray-800">
-      Crack your goals with <br/>India’s top educators
-    </p>
-    </div>
-     <div className="max-w-7xl mx-auto px-6">
-      <p className="font-semibold text-gray-800 ">Know more about our courses.</p>
+
+      {/* RIGHT ACTION */}
       <div>
-            <input
-              className="w-full px-4 py-2 rounded border"
-              value={email}
-              placeholder="Enter your email address"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-        <div className="flex">
-          <button className="bg-gray-600 text-white px-6 py-2 rounded font-medium text-xs w-100 mt-2" onClick={emailSaveHandle}>
-            Join for free
+        {isTeacher() ? (
+          <button onClick={logout} className="text-black font-semibold">
+            Logout
           </button>
-        </div>
+        ) : (
+          <Link
+            to="/api/auth/teacher-login"
+            className="text-black text-sm !no-underline border border-black rounded px-3 py-2 font-medium hover:bg-gray-100"
+          >
+            Teacher Login
+          </Link>
+        )}
       </div>
-      </div>
-      <div>
-        <img src="/contactUspage.JPG" className="rounded-4xl w-136 h-136 ml-40"/>
-      </div>
+
     </div>
+  </div>
+
+  {/* HERO HEIGHT */}
+  <div className="min-h-[220px] sm:min-h-[260px] md:min-h-[320px]" />
+</nav>
+
+  <div className="max-w-7xl mx-auto px-4 md:px-6 mt-20">
+  <div className="flex flex-col md:flex-row items-center gap-12">
+    
+    {/* LEFT CONTENT */}
+    <div className="w-full md:w-1/2 text-center md:text-left">
+      <p className="text-2xl sm:text-3xl md:text-5xl font-bold text-gray-800 leading-tight">
+        Crack your goals with <br className="hidden md:block" />
+        India’s top educators
+      </p>
+
+      <p className="font-semibold text-gray-800 mt-4">
+        Know more about our courses.
+      </p>
+
+      <div className="mt-4">
+        <input
+          className="w-full px-4 py-2 rounded border focus:outline-none focus:ring-2 focus:ring-gray-400"
+          value={email}
+          placeholder="Enter your email address"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </div>
+
+      <button
+        className="bg-gray-600 text-white px-6 py-2 rounded font-medium text-sm mt-4 w-full sm:w-auto"
+        onClick={emailSaveHandle}
+      >
+        Join for free
+      </button>
+    </div>
+
+    {/* RIGHT IMAGE */}
+    <div className="w-full md:w-1/2 flex justify-center">
+      <img
+        src="/contactUspage.JPG"
+        alt="Students"
+        className="rounded-3xl w-full max-w-md md:max-w-lg"
+      />
+    </div>
+
+  </div>
+</div>
+
 
     <div className="mt-24 ml-6 text-gray-800">
           <SelectGoal />

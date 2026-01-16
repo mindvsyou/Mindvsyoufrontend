@@ -17,37 +17,68 @@ import TeacherLogin from "./pages/TeacherLogin.jsx";
 import TeacherDashboard from "./pages/TeacherDashboard.jsx";
 import TeacherRegister from "./pages/TeacherRegister.jsx";
 import TeacherRouting from "../src/pages/TeacherRouting.jsx"
+import PyqLayout from "./pages/PyqLayout.jsx";
+import PyqList from "./pages/PyqList.jsx";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import "./App.css";
 
+
 function App() {
 
   return (
   
   <Routes>
-    <Route path = "/" element = {<Home />} />
-    <Route path = "/record/courses" element = {<Courses />} />
-    <Route path = "/record/aboutus" element = {<PrivacyPolicy />} />
-    <Route path = "/record/blogs" element = {<Blogs />} />
-    <Route path = "/record/contact" element = {<Contact />} />
-    <Route path = "/record/about" element = {<About />} />
-    <Route path = "/record/contactsuccess" element = {<ContactSuccess />} />
-    <Route path = "/record/emailsuccess" element = {<EmailSuccess />} />
-    <Route path = "/record/policy" element = {<PrivacyPolicy />} />
-    <Route path="/record/pdfs/:id" element={<ViewPdf />} />
-    <Route path="/record/edit/:id" element={<EditPdf />} />
-    <Route path="/record/:section" element={<PdfSection />} />
-    <Route path="/record/:section/upload" element={<TeacherRouting><UploadPdf /></TeacherRouting>} />
-    <Route path="/api/auth/teacher-login" element={<TeacherLogin />} />
-    <Route path="/api/auth/teacher-dashboard" element={<TeacherDashboard />} />
-    <Route path="/api/auth/teacher-register" element={<TeacherRegister />} />
+    
+
+  {/* ===== NORMAL PAGES ===== */}
+  <Route path="/" element={<Home />} />
+  <Route path="/record/courses" element={<Courses />} />
+  <Route path="/record/about" element={<About />} />
+  <Route path="/record/blogs" element={<Blogs />} />
+  <Route path="/record/contact" element={<Contact />} />
+  <Route path="/record/contactsuccess" element={<ContactSuccess />} />
+  <Route path="/record/emailsuccess" element={<EmailSuccess />} />
+  <Route path="/record/policy" element={<PrivacyPolicy />} />
+
+  {/* ===== AUTH ===== */}
+  <Route path="/api/auth/teacher-login" element={<TeacherLogin />} />
+  <Route path="/api/auth/teacher-register" element={<TeacherRegister />} />
+  <Route path="/api/auth/teacher-dashboard" element={<TeacherDashboard />} />
+
+  {/* ===== NORMAL CLASS PDFs ===== */}
+  <Route path="/record/:section" element={<PdfSection />} />
+
+  <Route
+    path="/record/:section/:subject/upload"
+    element={
+      <TeacherRouting>
+        <UploadPdf />
+      </TeacherRouting>
+    }
+  />
+
+  {/* ===== PYQ ROUTES (✅ NESTED PROPERLY) ===== */}
+  <Route path="/record/pyq" element={<PyqLayout />}>
+
     <Route
-  path="/record/:section/:subject/upload"
-  element={<UploadPdf />}
-/>
+      path=":classname/:subject"
+      element={<PyqList />}
+    />
+
+    <Route
+      path=":classname/:subject/upload"
+      element={
+        <TeacherRouting>
+          <UploadPdf />
+        </TeacherRouting>
+      }
+    />
+
+  </Route>
+
     
   </Routes>
  
