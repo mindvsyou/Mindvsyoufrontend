@@ -333,3 +333,10 @@ const Home = () => {
   );
 };
 export default Home;
+
+//git checkout master
+//git remote add frontend-remote https://github.com/mindvsyou/Mindvsyoufrontend.git
+//git remote -v
+//git fetch frontend-remote
+//git pull frontend-remote frontend
+//git push frontend-remote master:frontend
